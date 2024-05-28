@@ -1,7 +1,120 @@
 openapi: 3.0.0
-info: 
-  title: API rede social de Festas
-  version: 0.0.1
+info:
+  title: API Agenda
+  version: 1.0
 tags:
+  - agenda
 paths:
-componets:
+  /agenda:
+    get:
+      tags:
+        - agenda
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfAgenda'
+    post:
+      tags:
+        - agenda
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Agenda'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agenda'
+        422:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+  /agenda/{id}:
+    get:
+      tags:
+        - agenda
+      parameters:
+        - in: path
+          type: string
+          name: id
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agenda'
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+        422:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    put:
+      tags:
+        - agenda
+      parameters:
+        - in: path
+          type: string
+          name: id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Agenda'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agenda'
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    delete:
+      tags:
+        - agenda
+      parameters:
+        - in: path
+          type: string
+          name: id
+      responses:
+        204:
+          content:
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+components:
+  schemas:
+    ArrayOfAgenda:
+      type: array
+      items:
+        $ref: '#/components/schemas/Agenda'
+    Agenda:
+      type: object
+      properties:
+        nome:
+          type: string
+        anfitriao:
+          type: string
+        participantes:
+          type: number
+        data:
+          type: string
+    Mensagem:
+      type: object
+      properties:
+        msg:
+          type: string
