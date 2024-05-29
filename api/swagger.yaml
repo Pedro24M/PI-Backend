@@ -1,7 +1,170 @@
 openapi: 3.0.0
-info: 
-  title: API rede social de Festas
-  version: 0.0.1
-tags:
+info:
+  title: Documentação da API de Serviços de Festa
+  description: Documentação da API que gerencia serviços de festas
+  version: 1.0.0
 paths:
-componets:
+  /api/services:
+    post:
+      summary: Criar um novo serviço de festa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                festa:
+                  type: string
+                  description: Nome do serviço
+                  example: Serviço de Teste
+                descricao:
+                  type: string
+                  description: Descrição do serviço
+                  example: Este é um serviço de teste
+                preco:
+                  type: number
+                  description: Preço do serviço
+                  example: 100.00
+                imagem:
+                  type: string
+                  description: URL da imagem do serviço
+                  example: https://exemplo.com/imagem.jpg
+      responses:
+        '201':
+          description: Serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/Servico'
+                  msg:
+                    type: string
+                    example: Serviço criado com sucesso!
+    get:
+      summary: Obter todos os serviços
+      responses:
+        '200':
+          description: Lista de serviços obtida com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Servico'
+  /api/services/{id}:
+    get:
+      summary: Obter um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser obtido
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      responses:
+        '200':
+          description: Serviço obtido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servico'
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+    delete:
+      summary: Excluir um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser excluído
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      responses:
+        '200':
+          description: Serviço excluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleteService:
+                    $ref: '#/components/schemas/Servico'
+                  msg:
+                    type: string
+                    example: Serviço excluído com sucesso
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+    put:
+      summary: Atualizar um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser atualizado
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Servico'
+      responses:
+        '200':
+          description: Serviço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servico'
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+components:
+  schemas:
+    Servico:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID do serviço
+        festa:
+          type: string
+          description: Nome do serviço
+        descricao:
+          type: string
+          description: Descrição do serviço
+        preco:
+          type: number
+          description: Preço do serviço
+        imagem:
+          type: string
+          description: URL da imagem do serviço
