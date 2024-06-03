@@ -9,4 +9,4 @@ router.get('/Amigos/:id', AmigosController.getAmigosById);
 router.put('/Amigos/:id', AmigosController.updateAmigos);
 router.delete('/Amigos/:id', AmigosController.deleteAmigos);
 
-module.exports = router;
+module.exports = router
