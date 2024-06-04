@@ -17,6 +17,20 @@ conn()
 // Routes
 const routes = require("./routes/router")
 
+
+// Importa o roteador do Swagger
+const swaggerRouter = require('./routes/router_apidocs');
+
+// Usa o roteador do Swagger
+app.use(swaggerRouter);
+
+// Configuração da porta e inicialização do servidor
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 app.use("/api", routes)
 
 app.listen(3000, function(){
