@@ -3,10 +3,10 @@ const AmigosController = require('../controllers/AmigosController');
 
 const router = express.Router();
 
-router.post('/Amigos', AmigosController.createAmigos);
-router.get('/Amigos', AmigosController.getAmigos);
-router.get('/Amigos/:id', AmigosController.getAmigosById);
-router.put('/Amigos/:id', AmigosController.updateAmigos);
-router.delete('/Amigos/:id', AmigosController.deleteAmigos);
+router.post('/', AmigosController.createAmigos); 
+router.get('/', AmigosController.getAmigos);
+router.get('/:id', AmigosController.getAmigosById);
+router.put('/:id', AmigosController.updateAmigos);
+router.delete('/:id', AmigosController.deleteAmigos);
 
-module.exports = router
+module.exports = router;

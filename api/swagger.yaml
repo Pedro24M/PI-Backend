@@ -1,7 +1,147 @@
 openapi: 3.0.0
-info: 
-  title: API rede social de Festas
-  version: 0.0.1
-tags:
+info:
+  title: API de Amigos
+  description: API para gerenciar amigos
+  version: 1.0.0
+  contact:
+    name: Nome do Contato
+    email: contato@exemplo.com
+    url: http://www.exemplo.com
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor local de desenvolvimento
+
+components:
+  schemas:
+    Amigos:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nome do amigo
+        age:
+          type: integer
+          description: Idade do amigo
+        email:
+          type: string
+          description: Email do amigo
+      required:
+        - name
+        - age
+        - email
+
 paths:
-componets:
+  /Amigos:
+    post:
+      summary: Cria um novo amigo
+      tags:
+        - Amigos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amigos'
+      responses:
+        '201':
+          description: Amigo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '400':
+          description: Erro na requisição
+
+    get:
+      summary: Retorna uma lista de Amigos
+      tags:
+        - Amigos
+      responses:
+        '200':
+          description: Lista de Amigos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Amigos'
+        '500':
+          description: Erro no servidor
+
+  /Amigos/{id}:
+    get:
+      summary: Retorna um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      responses:
+        '200':
+          description: Amigo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '404':
+          description: Amigo não encontrado
+        '500':
+          description: Erro no servidor
+
+    put:
+      summary: Atualiza um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amigos'
+      responses:
+        '200':
+          description: Amigo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '400':
+          description: Erro na requisição
+        '404':
+          description: Amigo não encontrado
+
+    delete:
+      summary: Deleta um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      responses:
+        '200':
+          description: Amigo deletado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '404':
+          description: Amigo não encontrado
+        '500':
+          description: Erro no servidor
+

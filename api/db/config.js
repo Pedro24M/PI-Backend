@@ -5,7 +5,7 @@ async function main (){
 
         mongoose.set("strictQuery", true)
         await mongoose.connect(
-            "mongodb+srv://rafhael:rafhael@cluster0.48v3btg.mongodb.net/"
+            "mongodb+srv://rayanemariaj:bMnba5TeMxty8Tnj@cluster0.p5obzqw.mongodb.net/"
         )
 
         console.log("Conectado ao banco!")

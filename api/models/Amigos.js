@@ -16,4 +16,4 @@ const AmigosSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Amigos', AmigosSchemaSchema)
+module.exports = mongoose.model('Amigos', AmigosSchema)
