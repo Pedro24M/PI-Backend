@@ -1,7 +1,145 @@
 openapi: 3.0.0
-info: 
-  title: API rede social de Festas
-  version: 0.0.1
+info:
+  title: API de Cadastro de Usuários
+  version: 1.0
 tags:
+  - name: usuário
+    description: Endpoints relacionados aos usuários
 paths:
-componets:
+  /user:
+    get:
+      tags:
+        - usuário
+      summary: Lista todos os usuários
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfUser'
+    post:
+      tags:
+        - usuário
+      summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+  /user/{id}:
+    get:
+      tags:
+        - usuário
+      summary: Obtém um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser obtido
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    put:
+      tags:
+        - usuário
+      summary: Atualiza um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser atualizado
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    delete:
+      tags:
+        - usuário
+      summary: Exclui um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser excluído
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+components:
+  schemas:
+    ArrayOfUser:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    Mensagem:
+      type: object
+      properties:
+        msg:
+          type: string
