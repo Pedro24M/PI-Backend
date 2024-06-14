@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+<<<<<<< HEAD
     "dev": "nodemon -e yaml,js./bin/www",
+=======
+    "dev": "nodemon app.js",
+>>>>>>> a9bfd14f49795b4dd1f1a8492754bac0f852736b
     "test": "jest --watchAll"
   },
   "dependencies": {

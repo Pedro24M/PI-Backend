@@ -25,8 +25,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+<<<<<<< HEAD
 app.use('/api-docs', routerApidocs);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 
+=======
+//Db Connection
+const conn = require("./db/config")
+
+conn()
+
+// Routes
+const routes = require("./routes/router")
+
+app.use("/api", routes)
+
+app.listen(3000, function(){
+    console.log("Servidor Online!")
+})
+>>>>>>> a9bfd14f49795b4dd1f1a8492754bac0f852736b
 module.exports = app;
