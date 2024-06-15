@@ -4,7 +4,12 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-mongoose.connect(process.env.MONGODB_URL)
+try {
+    mongoose.connect(process.env.MONGODB_URL)
+}
+catch (err) {
+    console.log(err)
+}
 
 const routerApidocs = require('./routes/route_apidocs')
 const routerAgenda = require("./routes/router_agenda")

@@ -7,4 +7,4 @@ const agendaSchema = new mongoose.Schema({
     data: {type: String, trim: true, uppercase: true, required: true}
 });
 
-module.exports = mongoose.model("agenda", agendaSchema)
+module.exports = mongoose.model("Agenda", agendaSchema)
