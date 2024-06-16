@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: API Agenda
+  title: API Rede social de festas
   version: 1.0
 tags:
   - agenda
@@ -96,6 +96,460 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Mensagem'
+  
+
+
+
+
+
+  paths:
+  /user:
+    get:
+      tags:
+        - usuário
+      summary: Lista todos os usuários
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfUser'
+          
+    post:
+      tags:
+        - usuário
+      summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+
+  /user/{id}:
+    get:
+      tags:
+        - usuário
+      summary: Obtém um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser obtido
+          schema:
+            type: string
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    put:
+      tags:
+        - usuário
+      summary: Atualiza um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser atualizado
+          schema:
+            type: string
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+    delete:
+      tags:
+        - usuário
+      summary: Exclui um usuário pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do usuário a ser excluído
+          schema:
+            type: string
+      security:
+        - JWTAuth: []
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+
+
+
+
+  /user/login:
+    post:
+      tags:
+        - Autenticação
+      summary: Faz login do usuário e retorna um token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Token gerado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+
+
+
+
+
+
+  /Amigos:
+    post:
+      summary: Cria um novo amigo
+      tags:
+        - Amigos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amigos'
+      responses:
+        '201':
+          description: Amigo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '400':
+          description: Erro na requisição
+
+    get:
+      summary: Retorna uma lista de Amigos
+      tags:
+        - Amigos
+      responses:
+        '200':
+          description: Lista de Amigos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Amigos'
+        '500':
+          description: Erro no servidor
+
+  /Amigos/{id}:
+    get:
+      summary: Retorna um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      responses:
+        '200':
+          description: Amigo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '404':
+          description: Amigo não encontrado
+        '500':
+          description: Erro no servidor
+
+    put:
+      summary: Atualiza um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amigos'
+      responses:
+        '200':
+          description: Amigo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '400':
+          description: Erro na requisição
+        '404':
+          description: Amigo não encontrado
+
+    delete:
+      summary: Deleta um amigo pelo ID
+      tags:
+        - Amigos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID do amigo
+      responses:
+        '200':
+          description: Amigo deletado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amigos'
+        '404':
+          description: Amigo não encontrado
+        '500':
+          description: Erro no servidor
+
+
+
+
+
+  /services:
+    post:
+      tags:
+        - Festa
+      summary: Criar um novo serviço de festa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                festa:
+                  type: string
+                  description: Nome do serviço
+                  example: Serviço de Teste
+                descricao:
+                  type: string
+                  description: Descrição do serviço
+                  example: Este é um serviço de teste
+                preco:
+                  type: number
+                  description: Preço do serviço
+                  example: 100.00
+                imagem:
+                  type: string
+                  description: URL da imagem do serviço
+                  example: https://exemplo.com/imagem.jpg
+      responses:
+        '201':
+          description: Serviço criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    $ref: '#/components/schemas/Servico'
+                  msg:
+                    type: string
+                    example: Serviço criado com sucesso!
+    get:
+      tags:
+        - Festa
+      summary: Obter todos os serviços
+      responses:
+        '200':
+          description: Lista de serviços obtida com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Servico'
+  /services/{id}:
+    tags:
+        - Festa
+    get:
+      tags:
+        - Festa
+      summary: Obter um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser obtido
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      responses:
+        '200':
+          description: Serviço obtido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servico'
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+    delete:
+      tags:
+        - Festa
+      summary: Excluir um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser excluído
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      responses:
+        '200':
+          description: Serviço excluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleteService:
+                    $ref: '#/components/schemas/Servico'
+                  msg:
+                    type: string
+                    example: Serviço excluído com sucesso
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+    put:
+      tags:
+        - Festa
+      summary: Atualizar um serviço pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID do serviço a ser atualizado
+          schema:
+            type: string
+          example: 60d6c2960c4ef00015ee150d
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Servico'
+      responses:
+        '200':
+          description: Serviço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Servico'
+        '404':
+          description: Serviço não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Serviço não encontrado
+
+
 components:
   schemas:
     ArrayOfAgenda:
@@ -113,8 +567,53 @@ components:
           type: number
         data:
           type: string
-    Mensagem:
+    ArrayOfUser:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    User:
       type: object
       properties:
-        msg:
+        name:
           type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    securitySchemes:
+      JWTAuth:
+        type: apiKey
+        in: header
+        name: Authorization
+    Amigos:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nome do amigo
+        age:
+          type: integer
+          description: Idade do amigo
+        email:
+          type: string
+          description: Email do amigo
+    ArrayOfAmigos:
+      type: array
+      items:
+        $ref: '#/components/schemas/Amigos'
+    Servico:
+      type: object
+      properties:
+        festa:
+          type: string
+          description: Nome do serviço
+        descricao:
+          type: string
+          description: Descrição do serviço
+        preco:
+          type: number
+          description: Preço do serviço
+        imagem:
+          type: string
+          description: URL da imagem do serviço
