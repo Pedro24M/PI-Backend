@@ -1,0 +1,29 @@
+POST http://localhost:3000/api/services
+Content-Type: application/json
+
+{
+    "festa": "Festa IESB 2025",
+    "descricao": "Festa QA",
+    "preco": 1500,
+    "imagem": "https://img.freepik.com/fotos-gratis/publico-animado-assistindo-fogos-de-artificio-de-confete-e-se-divertindo-no-festival-de-musica-a-noite-copiar-espaco_637285-559.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1716768000&semt=sph"
+}
+
+###
+GET http://localhost:3000/api/services
+
+###
+GET http://localhost:3000/api/services/6656856da576b311bd0aeef7
+
+###
+DELETE  http://localhost:3000/api/services/6656856da576b311bd0aeef7
+
+###
+PUT  http://localhost:3000/api/services/6656856da576b311bd0aeef7
+Content-Type: application/json
+
+{
+    "festa": "FESTA TOP",
+    "descricao": "FESTA BACANA",
+    "preco": 1400,
+    "imagem": "https://img.freepik.com/fotos-gratis/publico-animado-assistindo-fogos-de-artificio-de-confete-e-se-divertindo-no-festival-de-musica-a-noite-copiar-espaco_637285-559.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1716768000&semt=sph"
+}
