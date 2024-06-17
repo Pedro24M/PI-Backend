@@ -4,13 +4,19 @@ const dotenv = require('dotenv');
 const crypto = require('crypto');
 const authenticateToken = require('../middlewares/auth');
 
+var token1
+
 // Carregar variáveis de ambiente
 dotenv.config();
 
 // Verificar se o segredo está sendo carregado corretamente
 console.log('JWT_SECRET:', process.env.SEGREDO);
 
-
+function cifrarSenha(password, salt) {
+  const hash = crypto.createHmac("sha256", salt);
+  hash.update(password);
+  return hash.digest('hex');
+}
 
 // Função para cifrar a senha
 function cifrarSenha(password, salt) {
@@ -40,11 +46,12 @@ exports.createUser = async (req, res) => {
 
 // Função para fazer login e gerar token JWT
 exports.entrar = async (req, res) => {
-    const usuarioEncontrado = await Usuario.findOne({ email: req.body.email });
+    const usuarioEncontrado = await User.findOne({ email: req.body.email });
+    console.log(usuarioEncontrado)
     if (usuarioEncontrado) {
-      const senhaCifrada = cifrarSenha(req.body.password, usuarioEncontrado.salto);
+      const senhaCifrada = cifrarSenha(req.body.password, usuarioEncontrado.salt);
       if (usuarioEncontrado.password === senhaCifrada) {
-        res.json({ token: jwt.sign({email: usuarioEncontrado.email}, process.env.SEGREDO, {expiresIn: '1m'}) });
+        res.json({ token: jwt.sign({email: usuarioEncontrado.email}, process.env.SEGREDO, {expiresIn: '60m'}) });
       } else {
         res.status(401).json({ msg: "acesso negado" });
       }

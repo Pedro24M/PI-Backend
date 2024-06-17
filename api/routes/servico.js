@@ -1,15 +1,17 @@
+const express = require('express')
 const router = require("express").Router()
 
 const servicoController = require("../controllers/controller_festa")
+const authenticateToken = require('../middlewares/auth');
 
-router.route("/").post((req, res)=> servicoController.create(req, res))
+router.post("/", authenticateToken, servicoController.create)
 
-router.route("/").get((req, res) => servicoController.getAll(req,res))
+router.get("/" ,authenticateToken, servicoController.getAll)
 
-router.route("/:id").get((req, res) => servicoController.get(req,res))
+router.get("/:id", authenticateToken, servicoController.get)
 
-router.route("/:id").delete((req,res) => servicoController.delete(req,res))
+router.delete("/:id", authenticateToken, servicoController.deletar)
 
-router.route("/:id").put((req, res) => servicoController.update(req,res))
+router.put("/:id", authenticateToken, servicoController.update)
 
 module.exports = router

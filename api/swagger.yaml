@@ -9,6 +9,8 @@ paths:
     get:
       tags:
         - agenda
+      security:
+        - JWTAuth: []
       responses:
         200:
           content:
@@ -18,6 +20,8 @@ paths:
     post:
       tags:
         - agenda
+      security:
+        - JWTAuth: []
       requestBody:
         content:
           application/json:
@@ -38,6 +42,8 @@ paths:
     get:
       tags:
         - agenda
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           type: string
@@ -61,6 +67,8 @@ paths:
     put:
       tags:
         - agenda
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           type: string
@@ -84,6 +92,8 @@ paths:
     delete:
       tags:
         - agenda
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           type: string
@@ -278,6 +288,8 @@ paths:
   /Amigos:
     post:
       summary: Cria um novo amigo
+      security:
+        - JWTAuth: []
       tags:
         - Amigos
       requestBody:
@@ -298,6 +310,8 @@ paths:
 
     get:
       summary: Retorna uma lista de Amigos
+      security:
+        - JWTAuth: []
       tags:
         - Amigos
       responses:
@@ -315,6 +329,8 @@ paths:
   /Amigos/{id}:
     get:
       summary: Retorna um amigo pelo ID
+      security:
+        - JWTAuth: []
       tags:
         - Amigos
       parameters:
@@ -338,6 +354,8 @@ paths:
 
     put:
       summary: Atualiza um amigo pelo ID
+      security:
+        - JWTAuth: []
       tags:
         - Amigos
       parameters:
@@ -367,6 +385,8 @@ paths:
 
     delete:
       summary: Deleta um amigo pelo ID
+      security:
+        - JWTAuth: []
       tags:
         - Amigos
       parameters:
@@ -397,6 +417,8 @@ paths:
       tags:
         - Festa
       summary: Criar um novo serviço de festa
+      security:
+        - JWTAuth: []
       requestBody:
         required: true
         content:
@@ -437,6 +459,8 @@ paths:
       tags:
         - Festa
       summary: Obter todos os serviços
+      security:
+        - JWTAuth: []
       responses:
         '200':
           description: Lista de serviços obtida com sucesso
@@ -453,6 +477,8 @@ paths:
       tags:
         - Festa
       summary: Obter um serviço pelo ID
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           name: id
@@ -482,6 +508,8 @@ paths:
       tags:
         - Festa
       summary: Excluir um serviço pelo ID
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           name: id
@@ -517,6 +545,8 @@ paths:
       tags:
         - Festa
       summary: Atualizar um serviço pelo ID
+      security:
+        - JWTAuth: []
       parameters:
         - in: path
           name: id
@@ -551,6 +581,11 @@ paths:
 
 
 components:
+  securitySchemes:
+      JWTAuth:
+        type: apiKey
+        in: header
+        name: Authorization
   schemas:
     ArrayOfAgenda:
       type: array
@@ -581,11 +616,6 @@ components:
           format: email
         password:
           type: string
-    securitySchemes:
-      JWTAuth:
-        type: apiKey
-        in: header
-        name: Authorization
     Amigos:
       type: object
       properties:

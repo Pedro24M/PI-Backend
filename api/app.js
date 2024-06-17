@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use('/api-docs', routerApidocs);
 app.use("/agenda", routerAgenda)
 app.use('/user', userRouter);
-app.use('/auth', authRouter);
+//app.use('/auth', authRouter);
 app.use('/Amigos', AmigosRouter)
 app.use('/services', routerFesta)
 
